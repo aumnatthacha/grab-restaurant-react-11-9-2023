@@ -4,6 +4,7 @@ import React, { useState, useEffect, } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Update.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -22,11 +23,14 @@ const config = {
 const Update = () => {
     let { id } = useParams();
     console.log(id)
+    const navigate = useNavigate()
     const [menu, setMenu] = useState({
         name: '',
         type: '',
         img: '',
     });
+
+    const [updateSuccess, setUpdateSuccess] = useState(false); // เพิ่ม state สำหรับการแจ้งเตือนการอัปเดตสำเร็จ
 
 
     const fetchMenuItem = async (menuItemId) => {
@@ -44,6 +48,7 @@ const Update = () => {
         try {
             const response = await axios.put(`${URL}/res/${menu.id}`, menu, config);
             console.log('อัปเดตเมนูอาหารแล้ว:', response.data);
+            setUpdateSuccess(true); 
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการอัปเดตเมนูอาหาร:', error);
         }
@@ -57,21 +62,24 @@ const Update = () => {
         });
     };
 
-
-    const handleCancel = () => {
-        history.push('/');
-    };
-
-
     useEffect(() => {
         const menuItemId = 'your_menu_item_id_here';
         fetchMenuItem(id);
     }, []);
 
+    const handleCancel = () => {
+        navigate('/')
+    };
+
     return (
         <div>
             <h2 className="text-center">Update Menu</h2>
-            <form className="container-sm"> {/* เพิ่ม .container-sm เพื่อทำให้ container เล็กลง */}
+            {updateSuccess && ( // แสดงข้อความเมื่ออัปเดตสำเร็จ
+                <div className="alert alert-success form-label" role="alert">
+                    อัปเดตเมนูอาหารสำเร็จแล้ว!
+                </div>
+            )}
+            <form className="container-sm">
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">
                         ชื่อเมนู:
@@ -111,18 +119,19 @@ const Update = () => {
                         onChange={handleInputChange}
                     />
                 </div>
-                {menu.img && (
-                    <div className="mb-3">
-                        <label>ตัวอย่างรูปภาพ:</label>
-                        <br />
-                        <img src={menu.img} alt="รูปภาพตัวอย่าง" className="img-fluid" />
-                    </div>
-                )}
+                <div className="mb-3">
+                    <label className='form-label'>ตัวอย่างรูปภาพ:</label>
+                    <br />
+                    <img
+                        src={menu.img}
+                        className="img-fluid resized-image"
+                    />
+                </div>
                 <div className="d-grid gap-2">
-                    <button type="button" className="btn btn-primary" onClick={handleUpdateMenu}>
+                    <button type="button" className="btn btn-success form-control" onClick={handleUpdateMenu}>
                         อัปเดตเมนูอาหาร
                     </button>
-                    <button type="button" className="btn btn-danger" onClick={handleCancel}>
+                    <button type="button" className="btn btn-danger form-control" onClick={handleCancel}>
                         Cancel
                     </button>
                 </div>

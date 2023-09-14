@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../index.css';
 import { useNavigate } from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -42,47 +43,49 @@ const Restaurant = () => {
     }, [searchTerm, restaurant]);
 
     const handleDelete = async (id) => {
-        try {
-            await axios.delete(`${URL}/res/${id}`, config);
-            const res = await axios.get(`${URL}/res`, config);
-            setRestaurant(res.data);
-        } catch (error) {
-            console.error('เกิดข้อผิดพลาดในการลบร้านอาหาร:', error);
+        const shouldDelete = window.confirm('คุณแน่ใจหรือไม่ว่าต้องการลบร้านอาหารนี้?');
+
+        if (shouldDelete) {
+            try {
+                await axios.delete(`${URL}/res/${id}`, config);
+                const res = await axios.get(`${URL}/res`, config);
+                setRestaurant(res.data);
+            } catch (error) {
+                console.error('เกิดข้อผิดพลาดในการลบร้านอาหาร:', error);
+            }
         }
     };
 
     return (
-        <div className=''>
-            <h1 className='h1Restaurant'>Restaurant</h1>
+        <div className='row py-lg-5'>
+            <h1 className='h1Restaurant '>THE RESTAURANT</h1>
             <div className="search-container">
                 <div className="search-box">
                     <input
-                        className="custom-search-input"
+                        className="custom-search-input NotoSansThai-Regular"
                         type="text"
-                        placeholder="Search by name..."
+                        placeholder="ค้นหาเมนูเลย"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <button className="btn btn-outline-success" type="submit">
-                        {/* <i className="fas fa-search"></i> */}
-                    </button>
                 </div>
             </div>
 
-            <ul className="restaurant-list">
+            <ul className="restaurant-list row py-lg-5 ">
                 {filteredRestaurant.map((item) => (
                     <li key={item.id} className="restaurant-card">
                         <div>
+                            <img src={item.img} />
                             <h2>{item.name}</h2>
                             <p>{item.type}</p>
-                            <img src={item.img} alt={item.name} />
                             <div className="button-container">
-                                <button className="view-button" onClick={() => navigate('./update/' + item.id)}>
+                                <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
                                     แก้ไข
                                 </button>
-                                <button className="reserve-button" onClick={() => handleDelete(item.id)}>
-                                    ลบ
+                                <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
+                                    <i className="bi bi-trash"></i> ลบ
                                 </button>
+
                             </div>
                         </div>
                     </li>

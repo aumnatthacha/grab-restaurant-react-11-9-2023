@@ -1,39 +1,25 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-primary">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="">Grab Restaurant</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/add">Add</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/search">search</Link>
-                        </li>
-                    </ul>
-                    {/* <form className="d-flex">
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Search"
-                            aria-label="Search"
-                        />
-                        <button className="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form> */}
-                </div>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-md">
+                <Link className="navbar-brand" to="">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4288/4288864.png"
+                        style={{ width: '50px', height: 'auto' }}
+                    />
+
+                </Link>
+                {/* <div>
+                    <h1 className='h1Restaurant ' style={{ color: 'white' }}>THE RESTAURANT</h1>
+                </div> */}
+                <form>
+                    <button className="btn btn-outline-warning ">
+                        <Link className="nav-link" to="/add">ADD</Link>
+                    </button>
+                </form>
             </div>
         </nav>
     );

@@ -5,7 +5,6 @@ import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Restaurant from './pages/Restaurant';
 import Add from './pages/Add';
-import Search from './pages/Search';
 import Update from './pages/update';
 
 
@@ -19,13 +18,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Restaurant />} />
           <Route path='/add' element={<Add />} />
-          <Route path='/search' element={<Search />} />
           <Route path='/update/:id' element={<Update />} />
-        
-          
         </Routes>
       </div>
-
     </BrowserRouter>
   );
 }
