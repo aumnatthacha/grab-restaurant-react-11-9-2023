@@ -80,7 +80,7 @@ const Restaurant = () => {
                             <p>{item.type}</p>
                             <div className="button-container">
                                 <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
-                                    แก้ไข
+                                    <i className="bi bi-arrow-repeat"> </i>แก้ไข
                                 </button>
                                 <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
                                     <i className="bi bi-trash"></i> ลบ

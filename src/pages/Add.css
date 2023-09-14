@@ -21,6 +21,8 @@
     font-family: NotoSansThai-Regular;
 }
 
+/* ดึง font google มา ใช้ */
+
 @font-face {
     font-family: NotoSansThai-Regular;
     src: url(../public/NotoSansThai-Regular.ttf);
