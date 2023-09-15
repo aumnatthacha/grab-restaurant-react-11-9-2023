@@ -58,7 +58,7 @@ const Restaurant = () => {
 
     return (
         <div className='row py-lg-5'>
-            <h1 className='h1Restaurant '>THE RESTAURANT</h1>
+            <h1 className='h1Restaurant'>THE RESTAURANT</h1>
             <div className="search-container">
                 <div className="search-box">
                     <input
