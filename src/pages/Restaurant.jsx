@@ -85,7 +85,6 @@ const Restaurant = () => {
                                 <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
                                     <i className="bi bi-trash"></i> ลบ
                                 </button>
-
                             </div>
                         </div>
                     </li>
