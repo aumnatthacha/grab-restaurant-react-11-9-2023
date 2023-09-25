@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Restaurant from './pages/Restaurant';
 import Add from './pages/Add';
-import Update from './pages/update';
+import Update from './pages/Update';
 
 
 
