@@ -12,9 +12,6 @@ const NavBar = () => {
                     />
 
                 </Link>
-                {/* <div>
-                    <h1 className='h1Restaurant ' style={{ color: 'white' }}>THE RESTAURANT</h1>
-                </div> */}
                 <form>
                     <button className="btn btn-outline-warning NotoSansThai-Regular">
                         <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>

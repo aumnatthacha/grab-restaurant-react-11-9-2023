@@ -20,6 +20,7 @@ function App() {
           <Route path='/' element={<Restaurant />} />
           <Route path='/add' element={<Add />} />
           <Route path='/update/:id' element={<Update />} />
+        
         </Routes>
       </div>
     </BrowserRouter>
