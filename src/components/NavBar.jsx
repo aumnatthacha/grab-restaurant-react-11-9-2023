@@ -16,6 +16,12 @@ const NavBar = () => {
                     <button className="btn btn-outline-warning NotoSansThai-Regular">
                         <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
                     </button>
+                    <button className="btn btn-outline-warning NotoSansThai-Regular">
+                        <Link className="nav-link" to="/Signup">Signup</Link>
+                    </button>
+                    <button className="btn btn-outline-warning NotoSansThai-Regular">
+                        <Link className="nav-link" to="/Login">Login</Link>
+                    </button>
                 </form>
             </div>
         </nav>

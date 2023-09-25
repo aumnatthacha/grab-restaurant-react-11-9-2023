@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Restaurant from './pages/Restaurant';
 import Add from './pages/Add';
 import Update from './pages/Update';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 
 
@@ -20,6 +22,9 @@ function App() {
           <Route path='/' element={<Restaurant />} />
           <Route path='/add' element={<Add />} />
           <Route path='/update/:id' element={<Update />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+
         
         </Routes>
       </div>
