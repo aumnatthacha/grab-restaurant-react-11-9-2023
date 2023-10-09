@@ -1,34 +1,34 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Add.css';
+import AuthService from '../services/auth.services';
+import axios from 'axios';
 
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
+// const URL = import.meta.env.VITE_BASE_URL;
+// const USERNAME = import.meta.env.VITE_BASE_USERNAME;
+// const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
 
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-};
+// const config = {
+//     auth: {
+//         username: USERNAME,
+//         password: PASSWORD,
+//     },
+// };
 
 const Signup = () => {
     const navigate = useNavigate();
 
-    // สร้าง state เพื่อเก็บข้อมูลผู้ใช้
     const [user, setUser] = useState({
         username: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState({ message: "" });
 
-    const [registrationSuccess, setRegistrationSuccess] = useState(false); // เพิ่ม state สำหรับการแจ้งเตือนการลงทะเบียนสำเร็จ
-
-    // ฟังก์ชันเมื่อข้อมูลผู้ใช้เปลี่ยนแปลง
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUser({
@@ -39,11 +39,20 @@ const Signup = () => {
 
     const handleRegister = async () => {
         try {
+            if (user.confirmPassword === user.password) {
+                const register = await AuthService.register(user.username, user.email, user.confirmPassword);
+                // navigate("/Login")
+            } else {
+                setError(true);
+                setErrorMessage({ message: "รหัสผ่านไม่ตรงกัน!" });
+            }
             const response = await axios.post(`${URL}/register`, user, config);
-            console.log('ลงทะเบียนสำเร็จ:', response.data);
+            console.log('ลงทะเบียนสำเร็จ:', register.data);
             setRegistrationSuccess(true);
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการลงทะเบียน:', error);
+            setError(true);
+            setErrorMessage(error.response.data);
         }
     };
 
@@ -53,71 +62,69 @@ const Signup = () => {
 
     return (
         <div>
-            <h2 className="text-center">Register</h2>
-            {registrationSuccess && ( // แสดงข้อความเมื่อลงทะเบียนสำเร็จ
-                <div className="alert alert-success form-label" role="alert">
-                    ลงทะเบียนสำเร็จ!
-                </div>
-            )}
+            <h2 className="text-center">Signup</h2>
             <form className="container-sm">
                 <div className="mb-3">
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">
-                            ชื่อผู้ใช้:
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="username"
-                            name="username"
-                            value={user.username}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">
-                            อีเมล:
-                        </label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            id="email"
-                            name="email"
-                            value={user.email}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">
-                            รหัสผ่าน:
-                        </label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            name="password"
-                            value={user.password}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="confirmPassword" className="form-label">
-                            ยืนยันรหัสผ่าน:
-                        </label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            value={user.confirmPassword}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
+                    <label htmlFor="username" className="form-label">
+                        ชื่อผู้ใช้:
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="username"
+                        name="username"
+                        value={user.username}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="email" className="form-label">
+                        อีเมล:
+                    </label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        value={user.email}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">
+                        รหัสผ่าน:
+                    </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        value={user.password}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="confirmPassword" className="form-label">
+                        ยืนยันรหัสผ่าน:
+                    </label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        value={user.confirmPassword}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                {error && (
+                    <div className="alert alert-danger" role="alert">
+                        {errorMessage.message}
+                    </div>
+                )}
                 <div className="d-grid gap-2">
                     <button
                         type="button"

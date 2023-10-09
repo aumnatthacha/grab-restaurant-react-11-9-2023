@@ -1,19 +1,21 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Add.css'; // แน่ใจว่ามีไฟล์ CSS สำหรับหน้าล็อกอิน
+import AuthService from '../services/auth.services';
 
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
+// const URL = import.meta.env.VITE_BASE_URL;
+// const USERNAME = import.meta.env.VITE_BASE_USERNAME;
+// const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
 
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-};
+// const config = {
+//     auth: {
+//         username: USERNAME,
+//         password: PASSWORD,
+//     },
+// };
 
 const Login = () => {
     const navigate = useNavigate();
@@ -37,8 +39,9 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post(`${URL}/login`, user, config);
-            console.log('เข้าสู่ระบบสำเร็จ:', response.data);
+            const login = await AuthService.login(user.username, user.password);
+            // const response = await axios.post(`${URL}/login`, user, config);
+            console.log('เข้าสู่ระบบสำเร็จ:', login);
             setLoginSuccess(true);
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', error);

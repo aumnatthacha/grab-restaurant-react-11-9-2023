@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthService from '../services/auth.services';
+
 
 const NavBar = () => {
+    const [user, setUser] = useState(AuthService.getCurrentUser);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-md">
@@ -16,12 +19,22 @@ const NavBar = () => {
                     <button className="btn btn-outline-warning NotoSansThai-Regular">
                         <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
                     </button>
-                    <button className="btn btn-outline-warning NotoSansThai-Regular">
-                        <Link className="nav-link" to="/Signup">Signup</Link>
-                    </button>
-                    <button className="btn btn-outline-warning NotoSansThai-Regular">
-                        <Link className="nav-link" to="/Login">Login</Link>
-                    </button>
+                    {!user && (
+                        <button className="btn btn-outline-warning NotoSansThai-Regular">
+                            <Link className="nav-link" to="/Signup">Signup</Link>
+                        </button>
+                    )}
+                    {!user && (
+                        <button className="btn btn-outline-warning NotoSansThai-Regular">
+                            <Link className="nav-link" to="/Login">Login</Link>
+                        </button>
+                    )}
+                    {user && (
+                        <button className="btn btn-outline-warning NotoSansThai-Regular">
+                            <Link className="nav-link" to="/Logout">Logout</Link>
+                        </button>
+                    )}
+
                 </form>
             </div>
         </nav>
