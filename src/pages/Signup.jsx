@@ -41,21 +41,18 @@ const Signup = () => {
         try {
             if (user.confirmPassword === user.password) {
                 const register = await AuthService.register(user.username, user.email, user.confirmPassword);
-                // navigate("/Login")
+                console.log('ลงทะเบียนสำเร็จ:', register);
+                navigate("/Login");
             } else {
                 setError(true);
                 setErrorMessage({ message: "รหัสผ่านไม่ตรงกัน!" });
             }
-            const response = await axios.post(`${URL}/register`, user, config);
-            console.log('ลงทะเบียนสำเร็จ:', register.data);
-            setRegistrationSuccess(true);
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการลงทะเบียน:', error);
             setError(true);
             setErrorMessage(error.response.data);
         }
     };
-
     const handleCancel = () => {
         navigate('/');
     };

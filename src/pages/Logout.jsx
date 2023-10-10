@@ -7,13 +7,13 @@ const Logout = () => {
     const navigate = useNavigate();
     const handleCancel = () => {
         AuthService.logout();
-        navigate("/");
+        navigate('/');
     };
 
     setTimeout(()=> {
         handleCancel();
     }, 3 * 1000);
-    return <div>Logout</div>
+    return <div></div>
 };
 
 export default Logout;
