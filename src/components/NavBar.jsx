@@ -10,7 +10,7 @@ const NavBar = () => {
     // const [user, setUser] = useState(AuthService.getCurrentUser);
     const { user, logout } = useAuthContext(); //10
     const navigate = useNavigate();
-    const handleLogout = () =>{
+    const handleLogout = () => {
         logout();
         navigate('/');
     }
@@ -24,12 +24,18 @@ const NavBar = () => {
 
                 </Link>
                 <form>
-                   
                     {user && (
-                         <button className="btn btn-outline-warning NotoSansThai-Regular">
-                        <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
-                    </button>
+                        <button className="btn btn-outline-warning NotoSansThai-Regular">
+                            <Link className="nav-link" to="/profile">Profile</Link>
+                        </button>
                     )}
+
+                    {user && user.roles.includes("ROLES_ADMIN") && (
+                        <button className="btn btn-outline-warning NotoSansThai-Regular">
+                            <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
+                        </button>
+                    )}
+
                     {!user && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/Signup">Signup</Link>
@@ -41,11 +47,14 @@ const NavBar = () => {
                         </button>
                     )}
                     {user && (
-                        <button className="btn btn-outline-warning NotoSansThai-Regular" 
-                        onClick={handleLogout}>Logout
+                        <button className="btn btn-outline-warning NotoSansThai-Regular"
+                            onClick={handleLogout}>Logout
                         </button>
-                        //เพื่อการแสดงชื่อคนที่ login {user.username}
-                        //เพิ่ม link profile
+                    )}
+                    {user && (
+                        <div className="navbar-text NotoSansThai-Regular">
+                            ยินดีต้อนรับ, {user.username}
+                        </div>
                     )}
                 </form>
             </div>

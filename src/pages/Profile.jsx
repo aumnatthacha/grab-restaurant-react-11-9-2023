@@ -7,7 +7,7 @@ const Profile = () => {
     const { user } = useAuthContext();
     return (
         <div className="row">
-            <div className="col-6 card profile my-2 light" style={{
+            <div className="col-6 card profile my-2 light mx-auto" style={{
                 width: "500px",
                 borderRadius: "20px"
             }}>
@@ -35,3 +35,4 @@ const Profile = () => {
         </div>
     )
 }
+export default Profile;

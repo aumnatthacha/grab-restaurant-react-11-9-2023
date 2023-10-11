@@ -10,7 +10,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Layout from './components/Layout';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile';
 // import ProtectedRou from './pages/ProtectedRou';
 import AdminRoute from './pages/AdminRoute';
 
@@ -27,7 +27,7 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route path='/logout' element={<Logout />} />
-          {/* <Route path='/profile' element={<Profile />} /> */}
+          <Route path='/profile' element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>
