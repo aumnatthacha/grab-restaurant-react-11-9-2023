@@ -5,9 +5,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Add.css'; // แน่ใจว่ามีไฟล์ CSS สำหรับหน้าล็อกอิน
 import AuthService from '../services/auth.services';
+//10
+import { useAuthContext } from '../context/AuthContext';
 
 const Login = () => {
     const navigate = useNavigate();
+    const {login} = useAuthContext();  //
 
     // สร้าง state เพื่อเก็บข้อมูลผู้ใช้
     const [user, setUser] = useState({
@@ -28,7 +31,10 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const login = await AuthService.login(user.username, user.password);
+            //10
+            const currentUser = await AuthService.login(user.username, user.password);
+            login(currentUser);
+
             // const response = await axios.post(`${URL}/login`, user, config);
             console.log('เข้าสู่ระบบสำเร็จ:', login);
             setLoginSuccess(true);

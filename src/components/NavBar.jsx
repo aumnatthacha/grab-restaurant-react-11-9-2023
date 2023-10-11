@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AuthService from '../services/auth.services';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthService from '../services/auth.services'; //10
+import { useAuthContext } from '../context/AuthContext'; //10
+
 
 
 const NavBar = () => {
-    const [user, setUser] = useState(AuthService.getCurrentUser);
+    // const [user, setUser] = useState(AuthService.getCurrentUser);
+    const { user, logout } = useAuthContext(); //10
+    const navigate = useNavigate();
+    const handleLogout = () =>{
+        logout();
+        navigate('/');
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-md">
@@ -16,9 +24,12 @@ const NavBar = () => {
 
                 </Link>
                 <form>
-                    <button className="btn btn-outline-warning NotoSansThai-Regular">
+                   
+                    {user && (
+                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                         <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
                     </button>
+                    )}
                     {!user && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/Signup">Signup</Link>
@@ -30,11 +41,12 @@ const NavBar = () => {
                         </button>
                     )}
                     {user && (
-                        <button className="btn btn-outline-warning NotoSansThai-Regular">
-                            <Link className="nav-link" to="/Logout">Logout</Link>
+                        <button className="btn btn-outline-warning NotoSansThai-Regular" 
+                        onClick={handleLogout}>Logout
                         </button>
+                        //เพื่อการแสดงชื่อคนที่ login {user.username}
+                        //เพิ่ม link profile
                     )}
-
                 </form>
             </div>
         </nav>
