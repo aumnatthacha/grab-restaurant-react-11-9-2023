@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../index.css';
 import { useNavigate } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useAuthContext } from '../context/AuthContext';
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -18,6 +19,7 @@ const config = {
 };
 
 const Restaurant = () => {
+    const { user } = useAuthContext();
     const [restaurant, setRestaurant] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
@@ -78,13 +80,20 @@ const Restaurant = () => {
                             <img src={item.img} />
                             <h2>{item.name}</h2>
                             <p>{item.type}</p>
+                            {/* 16 */}
                             <div className="button-container">
-                                <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
-                                    <i className="bi bi-arrow-repeat"> </i>แก้ไข
-                                </button>
-                                <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
-                                    <i className="bi bi-trash"></i> ลบ
-                                </button>
+                                {user && user.roles.includes("ROLES_ADMIN") && (
+                                    <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
+                                        <i className="bi bi-arrow-repeat"> </i>แก้ไข
+                                    </button>
+
+                                )}
+                                {user && user.roles.includes("ROLES_ADMIN") && (
+                                    <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
+                                        <i className="bi bi-trash"></i> ลบ
+                                    </button>
+                                )}
+
                             </div>
                         </div>
                     </li>

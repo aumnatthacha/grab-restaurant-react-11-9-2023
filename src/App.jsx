@@ -23,7 +23,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<Restaurant />} />
           <Route path='/add' element={<AdminRoute><Add /></AdminRoute>} />
-          <Route path='/update/:id' element={<Update />} />
+          {/* 16 */}
+          <Route path='/update/:id' element={<AdminRoute><Update /></AdminRoute>}  /> 
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route path='/logout' element={<Logout />} />

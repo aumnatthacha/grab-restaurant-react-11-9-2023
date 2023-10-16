@@ -29,10 +29,10 @@ const NavBar = () => {
                             <Link className="nav-link" to="/profile">Profile</Link>
                         </button>
                     )}
-
+                    {/* 16 */}
                     {user && user.roles.includes("ROLES_ADMIN") && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
-                            <Link className="nav-link" to="/add">เพิ่มเมนูอาหาร</Link>
+                            <Link className="nav-link" to="/add">Add</Link>
                         </button>
                     )}
 
