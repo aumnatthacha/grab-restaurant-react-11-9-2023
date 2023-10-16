@@ -17,7 +17,7 @@ const config = {
         username: USERNAME,
         password: PASSWORD,
     },
-    headers:authHeader(), 
+    headers: authHeader(),
 };
 
 const Restaurant = () => {
@@ -64,15 +64,17 @@ const Restaurant = () => {
         <div className='row py-lg-5'>
             <h1 className='h1Restaurant'>THE RESTAURANT</h1>
             <div className="search-container">
-                <div className="search-box">
-                    <input
-                        className="custom-search-input NotoSansThai-Regular"
-                        type="text"
-                        placeholder="ค้นหาเมนูเลย"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
+                {user && user.roles.includes("ROLES_ADMIN") && (
+                    <div className="search-box">
+                        <input
+                            className="custom-search-input NotoSansThai-Regular"
+                            type="text"
+                            placeholder="ค้นหาเมนูเลย"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                )}
             </div>
 
             <ul className="restaurant-list row py-lg-5 ">
