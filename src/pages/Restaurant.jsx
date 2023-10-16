@@ -6,6 +6,7 @@ import '../index.css';
 import { useNavigate } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useAuthContext } from '../context/AuthContext';
+import authHeader from '../services/auth-header';
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -16,6 +17,7 @@ const config = {
         username: USERNAME,
         password: PASSWORD,
     },
+    headers:authHeader(), 
 };
 
 const Restaurant = () => {
