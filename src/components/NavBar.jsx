@@ -28,19 +28,19 @@ const NavBar = () => {
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/profile">Profile</Link>
                         </button>
-                    )}
+                    )}{' '}
                     {/* 16 */}
                     {user && user.roles.includes("ROLES_ADMIN") && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/add">Add</Link>
                         </button>
-                    )}
+                    )}{' '}
 
                     {!user && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/Signup">Signup</Link>
                         </button>
-                    )}
+                    )}{' '}
                     {!user && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/Login">Login</Link>
