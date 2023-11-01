@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useAuthContext } from '../context/AuthContext';
 import authHeader from '../services/auth-header';
+import Loading from '../components/loading';
+import * as LoadingDate from '../Loading/restaurant.json'
+import Swal from 'sweetalert2'
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -25,6 +29,8 @@ const Restaurant = () => {
     const [restaurant, setRestaurant] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+    // const [loading, setLoading] = useState(false); //
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,10 +38,12 @@ const Restaurant = () => {
             try {
                 const res = await axios.get(`${URL}/res`, config);
                 setRestaurant(res.data);
+                // setLoading(false);
             } catch (error) {
                 console.error(error);
             }
         };
+        // setLoading(true); //
         fetchAllRestaurant();
     }, []);
 
@@ -62,6 +70,7 @@ const Restaurant = () => {
 
     return (
         <div className='row py-lg-5'>
+            <Loading animation={LoadingDate} />
             <h1 className='h1Restaurant'>THE RESTAURANT</h1>
             <div className="search-container">
                 {user && user.roles.includes("ROLES_ADMIN") && (
@@ -76,7 +85,9 @@ const Restaurant = () => {
                     </div>
                 )}
             </div>
-
+            {/* {
+                !loading
+            } */}
             <ul className="restaurant-list row py-lg-5 ">
                 {filteredRestaurant.map((item) => (
                     <li key={item.id} className="restaurant-card">
