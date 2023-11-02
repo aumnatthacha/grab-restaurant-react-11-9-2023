@@ -10,7 +10,7 @@ import { useAuthContext } from '../context/AuthContext';
 import authHeader from '../services/auth-header';
 import Loading from '../components/loading';
 import * as LoadingDate from '../Loading/restaurant.json'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -29,7 +29,7 @@ const Restaurant = () => {
     const [restaurant, setRestaurant] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-    // const [loading, setLoading] = useState(false); //
+    const [loading, setLoading] = useState(false); //
 
     const navigate = useNavigate();
 
@@ -38,12 +38,12 @@ const Restaurant = () => {
             try {
                 const res = await axios.get(`${URL}/res`, config);
                 setRestaurant(res.data);
-                // setLoading(false);
+                setLoading(false);
             } catch (error) {
                 console.error(error);
             }
         };
-        // setLoading(true); //
+        setLoading(true); //
         fetchAllRestaurant();
     }, []);
 
@@ -69,8 +69,7 @@ const Restaurant = () => {
     };
 
     return (
-        <div className='row py-lg-5'>
-            <Loading animation={LoadingDate} />
+        <div className='restaurant-container'>
             <h1 className='h1Restaurant'>THE RESTAURANT</h1>
             <div className="search-container">
                 {user && user.roles.includes("ROLES_ADMIN") && (
@@ -85,35 +84,33 @@ const Restaurant = () => {
                     </div>
                 )}
             </div>
-            {/* {
-                !loading
-            } */}
-            <ul className="restaurant-list row py-lg-5 ">
-                {filteredRestaurant.map((item) => (
-                    <li key={item.id} className="restaurant-card">
-                        <div>
-                            <img src={item.img} />
-                            <h2>{item.name}</h2>
-                            <p>{item.type}</p>
-                            {/* 16 */}
-                            <div className="button-container">
-                                {user && user.roles.includes("ROLES_ADMIN") && (
-                                    <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
-                                        <i className="bi bi-arrow-repeat"> </i>แก้ไข
-                                    </button>
-
-                                )}
-                                {user && user.roles.includes("ROLES_ADMIN") && (
-                                    <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
-                                        <i className="bi bi-trash"></i> ลบ
-                                    </button>
-                                )}
-
+            {!loading ? (
+                <ul className="restaurant-list row py-lg-5">
+                    {filteredRestaurant.map((item) => (
+                        <li key={item.id} className="restaurant-card">
+                            <div>
+                                <img src={item.img} alt={item.name} />
+                                <h2>{item.name}</h2>
+                                <p>{item.type}</p>
+                                <div className="button-container">
+                                    {user && user.roles.includes("ROLES_ADMIN") && (
+                                        <button className="btn btn-outline-success" onClick={() => navigate('./update/' + item.id)}>
+                                            <i className="bi bi-arrow-repeat"> </i>แก้ไข
+                                        </button>
+                                    )}
+                                    {user && user.roles.includes("ROLES_ADMIN") && (
+                                        <button className="btn btn-outline-danger" onClick={() => handleDelete(item.id)}>
+                                            <i className="bi bi-trash"></i> ลบ
+                                        </button>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <Loading animation={LoadingDate} />
+            )}
         </div>
     );
 };
