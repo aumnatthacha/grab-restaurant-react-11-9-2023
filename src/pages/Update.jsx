@@ -16,7 +16,7 @@ const config = {
         username: USERNAME,
         password: PASSWORD,
     },
-    headers: authHeader(), 
+    headers: authHeader(),
 };
 
 
@@ -31,9 +31,8 @@ const Update = () => {
         img: '',
     });
 
-    const [updateSuccess, setUpdateSuccess] = useState(false); 
 
-
+    const [updateSuccess, setUpdateSuccess] = useState(false); // เพิ่ม state สำหรับการแจ้งเตือนการอัปเดตสำเร็จ
     const fetchMenuItem = async (menuItemId) => {
         try {
             const response = await axios.get(`${URL}/res/${menuItemId}`, config);
@@ -49,7 +48,7 @@ const Update = () => {
         try {
             const response = await axios.put(`${URL}/res/${menu.id}`, menu, config);
             console.log('อัปเดตเมนูอาหารแล้ว:', response.data);
-            setUpdateSuccess(true); 
+            setUpdateSuccess(true);
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการอัปเดตเมนูอาหาร:', error);
         }
@@ -75,7 +74,7 @@ const Update = () => {
     return (
         <div>
             <h2 className="text-center">Update Menu</h2>
-            {updateSuccess && ( 
+            {updateSuccess && (
                 <div className="alert alert-success form-label" role="alert">
                     อัปเดตเมนูอาหารสำเร็จแล้ว!
                 </div>
@@ -135,6 +134,7 @@ const Update = () => {
                     <button type="button" className="btn btn-danger form-control" onClick={handleCancel}>
                         Cancel
                     </button>
+                   
                 </div>
             </form>
         </div>
