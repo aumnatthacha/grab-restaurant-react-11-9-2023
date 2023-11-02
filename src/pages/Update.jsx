@@ -31,7 +31,7 @@ const Update = () => {
         img: '',
     });
 
-    const [updateSuccess, setUpdateSuccess] = useState(false); // เพิ่ม state สำหรับการแจ้งเตือนการอัปเดตสำเร็จ
+    const [updateSuccess, setUpdateSuccess] = useState(false); 
 
 
     const fetchMenuItem = async (menuItemId) => {
