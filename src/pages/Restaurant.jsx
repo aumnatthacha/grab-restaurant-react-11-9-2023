@@ -10,7 +10,7 @@ import { useAuthContext } from '../context/AuthContext';
 import authHeader from '../services/auth-header';
 import Loading from '../components/loading';
 import * as LoadingDate from '../Loading/restaurant.json'
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -54,19 +54,30 @@ const Restaurant = () => {
         setFilteredRestaurant(filtered);
     }, [searchTerm, restaurant]);
 
-    const handleDelete = async (id) => {
-        const shouldDelete = window.confirm('คุณแน่ใจหรือไม่ว่าต้องการลบร้านอาหารนี้?');
 
-        if (shouldDelete) {
-            try {
-                await axios.delete(`${URL}/res/${id}`, config);
-                const res = await axios.get(`${URL}/res`, config);
-                setRestaurant(res.data);
-            } catch (error) {
-                console.error('เกิดข้อผิดพลาดในการลบร้านอาหาร:', error);
+    const handleDelete = async (id) => {
+        Swal.fire({
+            title: 'คุณแน่ใจหรือไม่?',
+            text: 'คุณต้องการลบร้านอาหารนี้หรือไม่?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ใช่, ลบ',
+            cancelButtonText: 'ยกเลิก'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`${URL}/res/${id}`, config);
+                    const res = await axios.get(`${URL}/res`, config);
+                    setRestaurant(res.data);
+                    Swal.fire('ลบสำเร็จ', 'ร้านอาหารถูกลบออกแล้ว', 'success');
+                } catch (error) {
+                    console.error('เกิดข้อผิดพลาดในการลบร้านอาหาร:', error);
+                    Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลบร้านอาหารได้', 'error');
+                }
             }
-        }
+        });
     };
+
 
     return (
         <div className='restaurant-container'>

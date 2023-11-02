@@ -7,6 +7,8 @@ import './Add.css';
 import AuthService from '../services/auth.services';
 //10
 import { useAuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -25,20 +27,28 @@ const Login = () => {
             [name]: value,
         });
     };
-
     const handleLogin = async () => {
         try {
-            //10
             const currentUser = await AuthService.login(user.username, user.password);
             login(currentUser);
-            console.log('เข้าสู่ระบบสำเร็จ:', login);
-            setLoginSuccess(true);
-
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully Login !',
+                showConfirmButton: false,
+                timer: 1500, // 
+            });
+    
             navigate('/');
         } catch (error) {
-            console.error('เกิดข้อผิดพลาดในการเข้าสู่ระบบ:', error);
+            console.error('Login failed:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Login failed !',
+                text: error.message,
+            });
         }
     };
+    
 
     const handleCancel = () => {
         navigate('/');
@@ -47,11 +57,6 @@ const Login = () => {
     return (
         <div>
             <h2 className="text-center">Login</h2>
-            {loginSuccess && ( 
-                <div className="alert alert-success form-label" role="alert">
-                    เข้าสู่ระบบสำเร็จ!
-                </div>
-            )}
             <form className="container-sm">
                 <div className="mb-3">
                     <div className="mb-3">
