@@ -75,7 +75,7 @@ const Update = () => {
     return (
         <div>
             <h2 className="text-center">Update Menu</h2>
-            {updateSuccess && ( // แสดงข้อความเมื่ออัปเดตสำเร็จ
+            {updateSuccess && ( 
                 <div className="alert alert-success form-label" role="alert">
                     อัปเดตเมนูอาหารสำเร็จแล้ว!
                 </div>
