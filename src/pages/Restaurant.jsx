@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useAuthContext } from '../context/AuthContext';
 import authHeader from '../services/auth-header';
-import Loading from '../components/Loading'
-import * as LoadingDate from '../Loading/restaurant.json'
+import Loading from '../components/Loading';
+import * as LoadingDate from './Loading/restaurant.json'
 import Swal from 'sweetalert2'
 
 const URL = import.meta.env.VITE_BASE_URL;
