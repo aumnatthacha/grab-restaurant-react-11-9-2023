@@ -6,17 +6,6 @@ import './Add.css';
 import AuthService from '../services/auth.services';
 import axios from 'axios';
 
-// const URL = import.meta.env.VITE_BASE_URL;
-// const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-// const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-
-// const config = {
-//     auth: {
-//         username: USERNAME,
-//         password: PASSWORD,
-//     },
-// };
-
 const Signup = () => {
     const navigate = useNavigate();
 
