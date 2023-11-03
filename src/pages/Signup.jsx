@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './Add.css';
 import AuthService from '../services/auth.services';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -26,11 +27,31 @@ const Signup = () => {
         });
     };
 
+    const handleCancel = () => {
+        Swal.fire({
+            title: 'คุณแน่ใจหรือไม่?',
+            text: 'คุณต้องการยกเลิกการลงทะเบียนหรือไม่?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'ใช่, ยกเลิก',
+            cancelButtonText: 'ไม่, ยกเลิก',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate('/');
+            }
+        });
+    };
+
     const handleRegister = async () => {
         try {
             if (user.confirmPassword === user.password) {
                 const register = await AuthService.register(user.username, user.email, user.confirmPassword);
                 console.log('ลงทะเบียนสำเร็จ:', register);
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'ลงทะเบียนสำเร็จ',
+                    text: 'คุณได้ลงทะเบียนสำเร็จแล้ว',
+                });
                 navigate("/Login");
             } else {
                 setError(true);
@@ -40,10 +61,12 @@ const Signup = () => {
             console.error('เกิดข้อผิดพลาดในการลงทะเบียน:', error);
             setError(true);
             setErrorMessage(error.response.data);
+            await Swal.fire({
+                icon: 'error',
+                title: 'ข้อผิดพลาดในการลงทะเบียน',
+                text: 'เกิดข้อผิดพลาดในการลงทะเบียน',
+            });
         }
-    };
-    const handleCancel = () => {
-        navigate('/');
     };
 
     return (
