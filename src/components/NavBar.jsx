@@ -7,7 +7,6 @@ import { useAuthContext } from '../context/AuthContext'; //10
 
 
 const NavBar = () => {
-    // const [user, setUser] = useState(AuthService.getCurrentUser);
     const { user, logout } = useAuthContext(); //10
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -29,7 +28,6 @@ const NavBar = () => {
                             <Link className="nav-link" to="/profile">Profile</Link>
                         </button>
                     )}{' '}
-                    {/* 16 */}
                     {user && user.roles.includes("ROLES_ADMIN") && (
                         <button className="btn btn-outline-warning NotoSansThai-Regular">
                             <Link className="nav-link" to="/add">Add</Link>
