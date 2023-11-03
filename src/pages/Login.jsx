@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Add.css'; 
 import AuthService from '../services/auth.services';
-//10
+
 import { useAuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 

@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import { useAuthContext } from "../context/AuthContext";
 
-// eslint-disable-next-line react-refresh/only-export-components
 const Profile = () => {
     const { user } = useAuthContext();
     return (
