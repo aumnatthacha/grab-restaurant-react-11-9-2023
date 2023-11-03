@@ -1,21 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Add.css'
+import api from '../services/api'
 
-
-
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-};
 
 const Add = () => {
     const navigate = useNavigate()
@@ -40,7 +28,7 @@ const Add = () => {
 
     const handleAddMenu = async () => {
         try {
-            const response = await axios.post(`${URL}/res`, menu, config);
+            const response = await api.post(`/res`, menu);
             console.log('เพิ่มเมนูอาหารแล้ว:', response.data);
             setUpdateSuccess(true);
         } catch (error) {

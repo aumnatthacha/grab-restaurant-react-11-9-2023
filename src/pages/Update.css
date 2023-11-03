@@ -1,6 +1,6 @@
 .resized-image {
-    max-width: 300px; /* ปรับขนาดเป็นขนาดที่คุณต้องการ */
-    max-height: 200px; /* ปรับขนาดเป็นขนาดที่คุณต้องการ */
+    max-width: 300px; 
+    max-height: 200px; 
     
 }
 
@@ -25,7 +25,11 @@
 
 @font-face {
     font-family: NotoSansThai-Regular;
+<<<<<<< HEAD
     src: url(../../public/NotoSansThai-Regular.ttf);
+=======
+    src: url(./public/NotoSansThai-Regular.ttf);
+>>>>>>> 085f345c32e054345d37974daefc81a826df6652
   }
   .NotoSansThai-Regular{
     font-family: NotoSansThai-Regular;
