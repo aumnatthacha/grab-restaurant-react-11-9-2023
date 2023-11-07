@@ -2,24 +2,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import './Update.css';
 import { useNavigate } from 'react-router-dom';
-import authHeader from '../services/auth-header';
-
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-    headers: authHeader(),
-};
-
-
+import api from '../services/api'
 
 const Update = () => {
     let { id } = useParams();
@@ -32,10 +18,10 @@ const Update = () => {
     });
 
 
-    const [updateSuccess, setUpdateSuccess] = useState(false); // เพิ่ม state สำหรับการแจ้งเตือนการอัปเดตสำเร็จ
+    const [updateSuccess, setUpdateSuccess] = useState(false); 
     const fetchMenuItem = async (menuItemId) => {
         try {
-            const response = await axios.get(`${URL}/res/${menuItemId}`, config);
+            const response = await api.get(`/res/${menuItemId}`);
             console.log(response.data)
             const menuItemData = response.data;
             setMenu(menuItemData);
@@ -43,16 +29,17 @@ const Update = () => {
             console.error('เกิดข้อผิดพลาดในการโหลดข้อมูลเมนูอาหาร:', error);
         }
     };
-
+    
     const handleUpdateMenu = async () => {
         try {
-            const response = await axios.put(`${URL}/res/${menu.id}`, menu, config);
+            const response = await api.put(`/res/${menu.id}`, menu);
             console.log('อัปเดตเมนูอาหารแล้ว:', response.data);
             setUpdateSuccess(true);
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการอัปเดตเมนูอาหาร:', error);
         }
     };
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -63,9 +50,9 @@ const Update = () => {
     };
 
     useEffect(() => {
-        const menuItemId = 'your_menu_item_id_here';
         fetchMenuItem(id);
-    }, []);
+    }, [id]);
+    
 
     const handleCancel = () => {
         navigate('/')
